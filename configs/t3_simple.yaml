@@ -1,0 +1,80 @@
+vhacd:
+  use_vhacd: True
+  force_vhacd: False
+  force_vhacd_urdf: True
+
+robot_urdf_path: "iCub/full.urdf"
+
+gui:
+  standard: True
+  web: False
+
+tolerance:
+  joint: 1e-3
+
+end_effector: "r_hand"
+
+initial_joint_angles:
+  r_shoulder_pitch: -34
+  r_shoulder_roll: 30
+  r_shoulder_yaw: 0
+  r_elbow: 50
+  r_wrist_prosup: 0
+  r_wrist_pitch: 0
+  r_wrist_yaw: 0
+  l_shoulder_pitch: -34
+  l_shoulder_roll: 30
+  l_shoulder_yaw: 0
+  l_elbow: 50
+  l_wrist_prosup: 0
+  l_wrist_pitch: 0
+  l_wrist_yaw: 0
+
+urdfs:
+  paths:
+    - plane/plane.obj
+    - table/table.obj
+    - box/box.urdf
+    - other_box/other_box.urdf
+  positions:
+    - [-5, -5, -0.65]
+    - [-0.6, -0.4, -0.225]
+    - [-0.5, -0.3, -0.1210110063463354]
+    - [-0.35, 0.1, -0.1210110063463354]
+  fixed: [True, True, False, False]
+  color:
+    - [0.75, 0.75, 0.75]
+    - [0.825, 0.41, 0.12]
+    - [0.0, 0.0, 0.0]
+    - [0.0, 0.0, 0.0]
+
+skin:
+  use: False
+  radius: 0.01
+  num_cores: 0
+  skin_parts: []
+
+collision_tolerance: 0.001
+debug: True
+
+log:
+  log: False
+  period: 0.01
+
+simulation_step: 240
+self_collisions: False
+
+eyes:
+  l_eye: False
+  r_eye: False
+
+camera:
+  fixed_camera: False
+  fixed_camera_pos: [-0.6742, -0.0194, 0.4362]
+  fixed_camera_target: [-0.2265, -0.0107, -0.4580]
+  fixed_camera_up: [0.8940, -0.0223, 0.4474]
+  randomize_camera: False
+  random_pos_range: 0.05
+  random_target_range: 0.02
+
+log_pose: False

@@ -1,0 +1,100 @@
+1. Take the lid off the box.
+2. Remove the lid from the box.
+3. Lift the lid off the box.
+4. Open the box by removing its lid.
+5. Pull the lid off the box.
+6. Take the top off the box.
+7. Remove the top lid of the box.
+8. Lift the top cover off the box.
+9. Take off the box's lid.
+10. Uncover the box by lifting the lid.
+11. Separate the lid from the box.
+12. Open the lidded box.
+13. Remove the cover from the box.
+14. Lift the cover off the box.
+15. Take the lid away from the box.
+16. Move the lid off the box.
+17. Open the box's lid.
+18. Pick up the lid from the box.
+19. Uncap the box.
+20. Detach the lid from the box.
+21. Can you take the lid off the box?
+22. Could you remove the lid from the box?
+23. Please lift the lid off the box.
+24. Would you mind taking the top off the box?
+25. I need you to remove the box's lid.
+26. Please uncover the box for me.
+27. Can you separate the lid from the box?
+28. Could you lift the cover off the box?
+29. Please pull the lid off the box.
+30. Would you open the box by lifting its lid?
+31. Can you take the lid away from the box?
+32. Please remove the top cover of the box.
+33. I'd appreciate it if you took the lid off the box.
+34. Could you detach the lid from the box?
+35. Please pick up the lid and open the box.
+36. Can you move the lid off the box?
+37. Please take off the box's lid.
+38. Would you lift the top off the box?
+39. Can you uncap the box for me?
+40. Please remove the cover from the box.
+41. Grab the lid and take it off the box.
+42. Take hold of the lid and lift it off the box.
+43. Reach for the lid and remove it from the box.
+44. Pick up the box's lid and set it aside.
+45. Grasp the lid and pull it off the box.
+46. Hold the lid and lift it away from the box.
+47. Grab the top of the box and take it off.
+48. Take the lid and separate it from the box.
+49. Lift the lid straight up and off the box.
+50. Remove the lid to expose the inside of the box.
+51. Grab the cover and lift it off the box.
+52. Take the box's cover and remove it.
+53. Pick up the top cover and pull it off the box.
+54. Grasp the top piece and take it off the box.
+55. Hold the box and pull the lid off.
+56. Reach out and lift the lid off the box.
+57. Grab the lid and move it off the box.
+58. Take the lid off to open the box.
+59. Lift the box's top straight off.
+60. Remove the lid to give access to the box.
+61. Make sure the lid is off the box.
+62. The box needs its lid removed.
+63. Ensure the lid is taken off the box.
+64. I want the box uncovered.
+65. Arrange it so the lid is off the box.
+66. The goal is to have the lid separated from the box.
+67. Let's get the lid off that box.
+68. Your task is to remove the lid from the box.
+69. Configure the box so it has no lid on it.
+70. The box should be sitting without its lid.
+71. Leave the box with the lid taken off.
+72. Ensure the top is removed from the box.
+73. I'd like the lid lifted off the box.
+74. The final state should have the lid completely off the box.
+75. Make it so the box is uncovered.
+76. Leave the scene with the box's lid removed.
+77. The lid belongs off the box.
+78. Put the scene in a state where the lid is separated from the box.
+79. Ensure the contents of the box are exposed by removing the lid.
+80. The setup requires the lid to be off the box.
+81. Slide the lid up and off the box.
+82. Displace the lid from the top of the box.
+83. Extract the lid from the box.
+84. Strip the lid off the box.
+85. Relocate the lid away from the box.
+86. Clear the lid off the box.
+87. Disconnect the lid from the box.
+88. Uncover the inside of the box by moving the lid.
+89. Take away the lid that covers the box.
+90. Shift the lid off the box.
+91. Disengage the lid from the box.
+92. Pull the top section away from the bottom of the box.
+93. Hoist the lid off the box.
+94. Clear the top cover off the box.
+95. Move the removable lid off the box.
+96. Dismount the lid from the box.
+97. Take the top piece off the container.
+98. Lift the lid to reveal the inside of the box.
+99. Take the capping lid off the box.
+100. Unveil the box by removing its lid.

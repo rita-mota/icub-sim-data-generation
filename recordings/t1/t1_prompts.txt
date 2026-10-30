@@ -1,0 +1,100 @@
+1. Stack the red cube on top of the green cube.
+2. Put the red cube on the green cube.
+3. Place the red cube atop the green cube.
+4. Set the red cube on top of the green one.
+5. Move the red cube onto the green cube.
+6. Drop the red cube on the green cube.
+7. Rest the red cube on top of the green cube.
+8. Position the red cube over the green cube.
+9. Balance the red cube on the green cube.
+10. Leave the red cube resting on the green cube.
+11. Stack the red block on the green block.
+12. Place the red block on top of the green block.
+13. Put the red block atop the green one.
+14. Move the red block onto the green block.
+15. Set the red block down on the green block.
+16. Stack the red object on the green object.
+17. Place the red item on top of the green item.
+18. Put the red box on the green box.
+19. Stack the red piece on top of the green piece.
+20. Stack red on green.
+21. Can you stack the red cube on top of the green cube?
+22. Could you please put the red cube on the green cube?
+23. Would you mind placing the red cube atop the green one?
+24. Please set the red cube on top of the green cube.
+25. I need you to move the red cube onto the green cube.
+26. Can you balance the red cube on the green cube?
+27. Could you rest the red block on the green block?
+28. Please stack the red block on top of the green block.
+29. Would you put the red block atop the green block?
+30. Can you position the red object over the green object?
+31. Please drop the red block onto the green block.
+32. I would like you to stack the red cube on the green one.
+33. Can you make sure the red cube is on top of the green cube?
+34. Please leave the red item resting on the green item.
+35. Could you build a stack with the red cube on top of the green one?
+36. Let's place the red block onto the green block, please.
+37. Will you stack the red box on the green box?
+38. Go ahead and put the red piece on the green piece.
+39. Can you set the red block down on the green block?
+40. Please arrange the red cube so it sits on the green cube.
+41. Pick up the red cube and put it on the green cube.
+42. Grab the red cube and place it on top of the green one.
+43. Take the red cube and stack it on the green cube.
+44. Lift the red cube and rest it atop the green cube.
+45. Pick up the red block and drop it onto the green block.
+46. Grab the red block and set it on top of the green block.
+47. Take the red block and move it onto the green block.
+48. Lift the red object and place it on the green object.
+49. Pick up the red item and stack it on the green item.
+50. Grab the red box and balance it on the green box.
+51. Take the red piece and put it on top of the green piece.
+52. Pick up the red cube and leave it on the green cube.
+53. Grasp the red cube and carefully set it on the green one.
+54. Hold the red block and place it squarely on the green block.
+55. Pick the red cube up and stack it atop the green cube.
+56. Grab the red item and drop it on top of the green item.
+57. Take hold of the red block and rest it on the green block.
+58. Lift up the red cube and position it over the green cube.
+59. Pick up the red piece and stack it directly on the green piece.
+60. Get the red cube and put it on top of the green one.
+61. Build a tower with the red cube on top of the green cube.
+62. Make a stack with the red block above the green block.
+63. Arrange the cubes so the red one is on top of the green one.
+64. Create a stack where the red object sits on the green object.
+65. Form a tower with the red box over the green box.
+66. I want the red cube stacked on the green cube.
+67. The red cube should be placed on top of the green cube.
+68. Ensure the red block is resting on the green block.
+69. Make sure the red item is sitting atop the green item.
+70. The goal is to have the red piece on top of the green piece.
+71. Your task is to stack the red cube onto the green cube.
+72. Let's get the red block resting squarely on the green block.
+73. Construct a two-block tower with red on top of green.
+74. The red cube belongs on top of the green cube.
+75. Put the red block higher up, right on the green block.
+76. I'd like to see the red cube stacked atop the green one.
+77. Align the red block so it sits securely on the green block.
+78. Assemble the blocks with the red one resting on the green one.
+79. Configure the objects so red is stacked over green.
+80. Make a vertical stack: green on the bottom, red on top.
+81. Put the red cube directly above the green cube.
+82. Place the red block squarely on top of the green block.
+83. Stack the red item right on top of the green item.
+84. Shift the red cube so it sits on the green cube.
+85. Transport the red block onto the green block.
+86. Relocate the red object to the top of the green object.
+87. Set the red box perfectly on top of the green box.
+88. Mount the red piece onto the green piece.
+89. Put the block that is red on top of the block that is green.
+90. Place the red-colored cube atop the green-colored cube.
+91. Stack the red target block onto the green base block.
+92. Move the top red block onto the bottom green block.
+93. Transfer the red cube to the top of the green cube.
+94. Deposit the red block onto the green block.
+95. Bring the red cube over and rest it on the green cube.
+96. Hover the red block over the green block and let go.
+97. Carry the red item and place it upon the green item.
+98. Center the red cube on the upper surface of the green cube.
+99. Rest the red piece precisely atop the green piece.
+100. Deliver the red cube to the top of the green cube.
