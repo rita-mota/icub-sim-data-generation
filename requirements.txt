@@ -1,5 +1,5 @@
 # Recovered and cleaned pyCub fork required by the task controllers.
-icub-pybullet @ git+https://github.com/rita-mota/pyCub-icub-vla.git@6bc9bdc903271f44da214d3da53145dbe83950d5#subdirectory=icub_pybullet
+icub-pybullet @ git+https://github.com/rita-mota/pyCub-icub-vla.git@1c5d78f342fbe4a186007c6e0abadef7cc6844d4#subdirectory=icub_pybullet
 
 # Versions recorded in the publication baseline environment.
 numpy==1.26.4
