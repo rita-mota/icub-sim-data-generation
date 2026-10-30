@@ -3,12 +3,11 @@
 These tests capture lightweight scientific contracts from the
 `pre-publication-original` implementation.
 
-Run them from the thesis directory with the existing pyCub environment:
+Run them from the repository root in an environment containing the required
+pyCub fork:
 
 ```bash
-cd /home/ritam/thesis
-envs/pycub_venv/bin/python -m unittest discover \
-  -s sim_data_collection/tests -v
+python -m unittest discover -s tests -p "test_baseline_contracts.py" -v
 ```
 
 The suite does not launch a simulator episode or generate a dataset. It checks

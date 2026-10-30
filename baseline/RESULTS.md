@@ -11,9 +11,7 @@
 Command:
 
 ```bash
-cd /home/ritam/thesis
-envs/pycub_venv/bin/python -m unittest discover \
-  -s sim_data_collection/tests -v
+python -m unittest discover -s tests -p "test_baseline_contracts.py" -v
 ```
 
 Result: **10 tests passed; 0 failed; 0 skipped.**
@@ -40,10 +38,7 @@ recorded environment.
 Command:
 
 ```bash
-cd /home/ritam/thesis
-envs/pycub_venv/bin/python -m unittest -v \
-  sim_data_collection.test_gripper_open_refresh \
-  sim_data_collection.test_sticky_gripper
+python -m unittest -v test_gripper_open_refresh test_sticky_gripper
 ```
 
 Result: **7 tests passed; 1 pre-existing test failed.**
@@ -56,13 +51,20 @@ It expects the `t1_new_smooth` attachment policy to be
 was changed. The passing baseline contract suite records
 `per_finger_immediate` as the observed original behavior.
 
+## Clean pyCub fork compatibility verification
+
+The contract suite was rerun with the clean local pyCub publication commit
+`ec02eea7835f28879327726e427f471386720193` first on `PYTHONPATH`.
+All **10 tests passed**. The pyCub fork's own lightweight extension suite also
+passed **5 tests**, covering joint lookup, fixed-camera pose updates, and
+portable URDF asset references.
+
 ## Not verified yet
 
 - Full PyBullet task executions or success rates.
 - Contact-heavy simulator determinism.
 - Rendered image equivalence across renderers or machines.
-- End-to-end collection of a real episode.
-- The installed pyCub modifications versus the new public fork.
+- End-to-end collection of a real episode using the clean fork.
 - TensorFlow/RLDS, LeRobot, or Hugging Face conversion pipelines.
 
 These require the pyCub fork recovery and a separately approved simulator smoke

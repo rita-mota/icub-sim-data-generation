@@ -2,12 +2,12 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from sim_data_collection.core.robot_skills import RobotSkills, GripperState
+from core.robot_skills import RobotSkills, GripperState
 
 
 class StickyGripperTest(unittest.TestCase):
     def setUp(self):
-        self.physics = patch("sim_data_collection.core.robot_skills.p").start()
+        self.physics = patch("core.robot_skills.p").start()
         self.addCleanup(patch.stopall)
         pose = ([0, 0, 0], [0, 0, 0, 1])
         self.physics.getLinkState.return_value = pose

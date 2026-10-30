@@ -1,7 +1,7 @@
 # Dataset creation implementation report: smooth experts
 
-**Scope:** `/home/ritam/thesis/sim_data_collection`  
-**Review date:** 13 September 2026  
+**Scope:** `/path/to/icub-sim-data-generation`
+**Review date:** 13 September 2026
 **Method:** static inspection of the current source and YAML configurations. Collection, rendering, conversion, and training were not executed. This report documents implemented behavior rather than measured performance.
 
 ## 1. Purpose and scope
@@ -20,7 +20,7 @@ The expert uses privileged simulator state: object poses, bounding boxes, joint 
 
 Parent task files are discussed only where smooth classes inherit setup, randomization, configuration, or success checks. Their non-smooth expert sequences, T3 simple, T5, and the historical `robot_skills_before_t1_smooth.py` are excluded.
 
-Source: [task registry](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/main_collect.py:50).
+Source: [task registry](#L).
 
 ## 2. Architecture
 
@@ -41,7 +41,7 @@ Task and collector operate on the same simulator. The runner wraps `client.updat
 
 The reviewed configurations use `r_hand` as end effector and 240 Hz physics. pyCub supplies robot loading, joint handles, Cartesian motion and simulator integration. The smooth modules call this Cartesian interface; they do not implement their own inverse-kinematics solver.
 
-Sources: [runner](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/main_collect.py:66), [base lifecycle](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/base_task.py:61), [collector](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/data_collector.py:116), [T2 specialization](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/t2_new_smooth.py:9).
+Sources: [runner](#L), [base lifecycle](#L), [collector](#L), [T2 specialization](#L).
 
 ## 3. Collection pipeline
 
@@ -69,7 +69,7 @@ The timeout catch marks failure but does not stop the collector in a `finally` b
 
 Debug mode disables saving and metadata writing, then keeps the simulation open for inspection.
 
-Sources: [runner](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/main_collect.py:66), [lifecycle](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/base_task.py:61), [sampling](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/data_collector.py:204).
+Sources: [runner](#L), [lifecycle](#L), [sampling](#L).
 
 ## 4. Smooth trajectory algorithm
 
@@ -121,7 +121,7 @@ T1 and T4 repeatedly hold the seven left-arm joints during Cartesian control to 
 
 The limits constrain references, not measured motion under IK errors, dynamics, contact, or constraint forces. A contact-triggered stop can truncate a segment before its zero-velocity endpoint. T1 placement also uses a different incremental helper. Whole-episode minimum-jerk motion and achieved acceleration bounds are therefore not established.
 
-Sources: [T1 trajectories](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_1_smooth.py), [T2 trajectories](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_2_smooth.py), [T3 trajectories](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_3_smooth.py), [T4 trajectories](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_4_smooth.py).
+Sources: [T1 trajectories](../tasks/task_1_smooth.py), [T2 trajectories](../tasks/task_2_smooth.py), [T3 trajectories](../tasks/task_3_smooth.py), [T4 trajectories](../tasks/task_4_smooth.py).
 
 ## 5. Shared gripper controller
 
@@ -167,7 +167,7 @@ T4's single anchor avoids conflicting constraints between one object and multipl
 
 Metadata records the profile used by T1, new T2, and T4. The optional `t1_sticky_fingertips` profile exists but is not selected by the reviewed T1 collection class.
 
-Sources: [profiles](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:15), [initialization](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:723), [decoding](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:1065), [post-action logic](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:1120), [candidate selection](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:1560), [hand anchor](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:1655).
+Sources: [profiles](#L), [initialization](#L), [decoding](#L), [post-action logic](#L), [candidate selection](#L), [hand anchor](#L).
 
 ## 6. Task-specific expert algorithms
 
@@ -192,7 +192,7 @@ The leveling helper uses a separate Cartesian command followed by repeated 0.005
 
 The inherited final check requires `valid_grasp` and a moving-cube base height at least 0.03 m above the target base. Smooth execution adds weldability and release guards, but the final predicate alone does not prove physical support stability.
 
-Sources: [smooth T1](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_1_smooth.py), [inherited setup/success](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_1.py), [placement helper](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:318).
+Sources: [smooth T1](../tasks/task_1_smooth.py), [inherited setup/success](../tasks/task_1.py), [placement helper](#L).
 
 ### T2: smooth bottle moving
 
@@ -213,7 +213,7 @@ The hand target preserves the measured object-to-hand transform: `T_BH = inverse
 
 `t2_new_smooth` replaces these routines with the shared binary controller while retaining the Cartesian phases and final predicate: valid grasp and final bottle x/y error ≤0.05 m. Uprightness, final height, long-term stability, and explicit table support are not checked.
 
-Sources: [smooth T2](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_2_smooth.py), [new gripper integration](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/t2_new_smooth.py).
+Sources: [smooth T2](../tasks/task_2_smooth.py), [new gripper integration](../tasks/t2_new_smooth.py).
 
 ### T3: smooth pushing
 
@@ -225,7 +225,7 @@ Four targets define elevated pre-push, contact start, push endpoint, and raised 
 
 There is no online corrective push loop or grasp attachment. Success requires final object-base x/y distance ≤0.06 m from the centre. The inherited nearby “5cm” comment differs from the executable 6 cm threshold.
 
-Sources: [smooth T3](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_3_smooth.py), [push geometry](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/robot_skills.py:448), [target/success](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_3.py).
+Sources: [smooth T3](../tasks/task_3_smooth.py), [push geometry](#L), [target/success](../tasks/task_3.py).
 
 ### T4: smooth lid opening
 
@@ -235,7 +235,7 @@ After contact-confirmed closure and single-hand attachment, it lifts 0.17 m. The
 
 Success requires valid grasp and final lid-base 3D distance strictly below 0.1 m from target. Settling failures warn but do not automatically abort. The fixed grasp pose limits adaptation to randomized object placements, despite the object-relative initial approach.
 
-Source: [smooth T4](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/task_4_smooth.py).
+Source: [smooth T4](../tasks/task_4_smooth.py).
 
 ## 7. Recording schema and action meaning
 
@@ -265,7 +265,7 @@ Raw `ee_poses[:,6]` is achieved closure; raw `ee_deltas[:,6]` is its change. Nei
 
 The queue holds 60 jobs. A full queue drops a sample rather than blocking physics. Since the previous EE pose is updated before queue insertion, a subsequent raw delta can refer to a dropped state. Uniform 5 Hz spacing and adjacent-state delta consistency must be verified in actual data.
 
-Sources: [sampling](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/data_collector.py:204), [saving](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/data_collector.py:251), [state extraction](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/core/data_collector.py:352).
+Sources: [sampling](#L), [saving](#L), [state extraction](#L).
 
 ## 8. Offline image generation
 
@@ -281,7 +281,7 @@ Reconstruction depends on current assets/configuration and restores only recorde
 
 Optional online collector rendering reads the live world later in its worker and does not restore the queued state. Exact online image/state synchronization is therefore not guaranteed. Normal state-only collection followed by offline reconstruction avoids that particular issue.
 
-Sources: [renderer](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tools/render_recording.py), [batch orchestration](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/process_dataset.py), [decoder](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tools/decoder.py).
+Sources: [renderer](../tools/render_recording.py), [batch orchestration](../process_dataset.py), [decoder](../tools/decoder.py).
 
 ## 9. Training-label conversion and export
 
@@ -321,7 +321,7 @@ This is an RLDS-to-LeRobot stage. The reviewed collection pipeline does not invo
 
 The converter defaults to 10 fps, whereas collection is 5 Hz. Unresampled recordings should use 5 fps export metadata. Preserving timestamps does not automatically correct an inconsistent declared rate.
 
-Sources: [next-action conversion](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/make_next_action_dataset.py), [binary gripper conversion](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/make_absolute_gripper_actions.py), [older rotation correction](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/fix_orientation.py), [LeRobot conversion](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/convert_lerobot.py).
+Sources: [next-action conversion](../scripts/make_next_action_dataset.py), [binary gripper conversion](../scripts/make_absolute_gripper_actions.py), [older rotation correction](../scripts/fix_orientation.py), [LeRobot conversion](../scripts/convert_lerobot.py).
 
 ## 10. Diversity, language, and reproducibility
 
@@ -337,7 +337,7 @@ Camera randomization needs both runner randomization and the YAML toggle. All ch
 
 Metadata does not preserve random seeds, source revision, dependency versions, a complete immutable configuration, or all transformation history. Conversion JSON files and backups improve traceability but do not replace a full dataset provenance manifest.
 
-Sources: [prompt placeholder](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/main_collect.py:33), [metadata](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/tasks/base_task.py:40), [prompt augmentation](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/augment_prompts.py), [camera augmentation](//wsl.localhost/Ubuntu/home/ritam/thesis/sim_data_collection/scripts/augment_cameras.py), inherited randomizers in the parent task modules.
+Sources: [prompt placeholder](#L), [metadata](#L), [prompt augmentation](../scripts/augment_prompts.py), [camera augmentation](../scripts/augment_cameras.py), inherited randomizers in the parent task modules.
 
 ## 11. Thesis interpretation and verification boundaries
 

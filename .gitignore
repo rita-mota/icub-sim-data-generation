@@ -36,10 +36,16 @@ _debug_videos/
 scripts/task_action_analysis_preview/
 scripts/rlds_frame_0_proprio.npy
 
+# Python packaging artifacts
+build/
+dist/
+*.egg-info/
+
 # Generated media, datasets, archives, and model artifacts
 *.mp4
 *.avi
 *.mov
+*.npy
 *.npz
 *.tfrecord*
 *.parquet

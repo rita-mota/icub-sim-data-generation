@@ -1,7 +1,7 @@
 import unittest
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
-from sim_data_collection.core.robot_skills import RobotSkills, GripperState
+from core.robot_skills import RobotSkills, GripperState
 
 class OpenRefreshTests(unittest.TestCase):
     def test_final_target_is_reissued_until_joint_arrives(self):
@@ -13,7 +13,7 @@ class OpenRefreshTests(unittest.TestCase):
         s.gripper_joint_handles = {"joint": SimpleNamespace(robot_joint_id=2)}
         s.gripper_open_targets = {"joint": 0.0}
         s.gripper_opening_starts = {"joint": 1.0}
-        with patch("sim_data_collection.core.robot_skills.p") as physics:
+        with patch("core.robot_skills.p") as physics:
             physics.getJointState.return_value = (.1, 0, 0, 0)
             result = s.execute_gripper_post_action(1)
             self.assertEqual(result["state_after"], "OPENING")

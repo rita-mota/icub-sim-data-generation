@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it and the associated master's thesis."
+title: "iCub Dataset Generation"
+type: software
+authors:
+  - given-names: "Rita Alexandra"
+    family-names: "da Costa Mota"
+    affiliation: "Instituto Superior Tecnico, Portugal"
+repository-code: "https://github.com/rita-mota/icub-sim-data-generation"
+license: MIT
+abstract: >-
+  Simulation data-generation pipeline for humanoid manipulation demonstrations
+  with the iCub robot, developed for research on Vision-Language-Action models.
+keywords:
+  - iCub
+  - humanoid robotics
+  - manipulation
+  - simulation
+  - vision-language-action
+  - dataset generation

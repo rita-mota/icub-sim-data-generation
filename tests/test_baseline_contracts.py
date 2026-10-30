@@ -14,20 +14,17 @@ from unittest.mock import Mock
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-PROJECT_PARENT = ROOT.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-if str(PROJECT_PARENT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_PARENT))
 
-from sim_data_collection.core.data_collector import DataCollector
-from sim_data_collection.core.robot_skills import RobotSkills
-from sim_data_collection.core.spill import sample_spill
-from sim_data_collection.tasks.task_1_smooth import T1SmoothStacking
-from sim_data_collection.tasks.task_2_smooth import T2SmoothMoving
-from sim_data_collection.tasks.task_3_smooth import T3SmoothPushing
-from sim_data_collection.tasks.task_4_smooth import T4SmoothOpening
-from sim_data_collection.tasks.task_5_smooth import T5SmoothCleaning
+from core.data_collector import DataCollector
+from core.robot_skills import RobotSkills
+from core.spill import sample_spill
+from tasks.task_1_smooth import T1SmoothStacking
+from tasks.task_2_smooth import T2SmoothMoving
+from tasks.task_3_smooth import T3SmoothPushing
+from tasks.task_4_smooth import T4SmoothOpening
+from tasks.task_5_smooth import T5SmoothCleaning
 
 
 EXPECTED_HASHES = {

@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# Versions validated in the thesis environment for local analysis utilities.
+imageio==2.37.3
+matplotlib==3.11.0
