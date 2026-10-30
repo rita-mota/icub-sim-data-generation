@@ -1,4 +1,4 @@
-﻿"""
+"""
 Previous converter kept for reference below. It was useful as a first pass, but it
 used non-standard feature names, did not explicitly finalize the LeRobot dataset,
 and could trip TensorFlow CUDA initialization during CPU-only conversion.

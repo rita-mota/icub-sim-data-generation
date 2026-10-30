@@ -1,47 +1,51 @@
-import numpy as np
-from icub_pybullet.pycub import pyCub
+"""Locate arm-joint subsequences inside a recorded proprioception vector."""
 
-# 1. Configure your paths
-CONFIG_PATH = "/home/ritam/thesis/sim_data_collection/configs/t1.yaml"
-DATASET_PATH = '/home/ritam/tensorflow_datasets/sim_dataset_t1/1.0.0'
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+import numpy as np
+
+
 
 def find_subsequence(target, sequence, name):
-    """Slides a target array across a sequence to find the closest match."""
+    """Find the sequence window with the lowest mean absolute error."""
     window_size = len(target)
     best_idx = -1
-    min_error = float('inf')
-    
-    for i in range(len(sequence) - window_size + 1):
-        window = sequence[i : i + window_size]
-        # Calculate Mean Absolute Error between the window and our target
+    min_error = float("inf")
+
+    for index in range(len(sequence) - window_size + 1):
+        window = sequence[index:index + window_size]
         error = np.mean(np.abs(window - target))
-        
         if error < min_error:
             min_error = error
-            best_idx = i
-            
-    # Output the results
-    print(f"\n[*] {name.upper()} ARM SEARCH RESULT:")
-    if min_error < 1e-3:
-        print(f"    Match found at Index {best_idx} with near-zero error ({min_error:.6f})")
-        print(f"    Your Python slice is: proprio[{best_idx}:{best_idx + window_size}]")
-    else:
-        print(f"    [!] Warning: Lowest error was {min_error:.6f}. The dataset starting pose")
-        print(f"    might slightly differ from the simulator default pose.")
-        print(f"    Best guess slice: proprio[{best_idx}:{best_idx + window_size}]")
+            best_idx = index
 
-def main():
-    print("[*] Booting Simulator to grab target arm states...")
-    sim = pyCub(config=CONFIG_PATH)
-    sim_right = np.array(sim.get_arm_joint_states('right'))
-    sim_left = np.array(sim.get_arm_joint_states('left'))
-    
-    print(f"[*] Loading first frame from RLDS dataset: {DATASET_PATH}")
-    rlds_proprio = np.load("rlds_frame_0_proprio.npy")
-    
-    # Run the sliding window search
-    find_subsequence(sim_right, rlds_proprio, "Right")
-    find_subsequence(sim_left, rlds_proprio, "Left")
+    print(f"\n{name.upper()} ARM SEARCH RESULT")
+    print(f"  Best index: {best_idx}")
+    print(f"  Mean absolute error: {min_error:.6f}")
+    print(f"  Slice: proprio[{best_idx}:{best_idx + window_size}]")
+    if min_error >= 1e-3:
+        print("  Warning: the dataset starting pose may differ from the simulator.")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Match simulator arm states inside a saved proprioception vector."
+    )
+    parser.add_argument("--config", type=Path, default=Path("configs/t1.yaml"))
+    parser.add_argument("--proprio", type=Path, required=True)
+    args = parser.parse_args()
+
+    from icub_pybullet.pycub import pyCub
+
+    simulator = pyCub(config=str(args.config))
+    recorded = np.load(args.proprio)
+
+    find_subsequence(np.asarray(simulator.get_arm_joint_states("right")), recorded, "right")
+    find_subsequence(np.asarray(simulator.get_arm_joint_states("left")), recorded, "left")
+
 
 if __name__ == "__main__":
     main()

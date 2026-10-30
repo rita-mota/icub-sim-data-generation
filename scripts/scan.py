@@ -1,105 +1,77 @@
-import os
-import glob
+"""Check recorded episodes for array-length mismatches and timestamp gaps."""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
 import numpy as np
 
-def scan_dataset_health(data_path, tolerance_multiplier=1.2):
-    print(f"Scanning dataset at: {data_path}")
-    print("Looking for end-of-episode mismatches and mid-episode drops...\n")
-    
+CAMERAS = ("fixed_camera", "l_eye", "r_eye")
+
+
+def camera_length(episode_dir: Path, camera: str) -> int:
+    archive = episode_dir / f"{camera}_video.npz"
+    if archive.exists():
+        with np.load(archive) as data:
+            return len(data[data.files[0]])
+    image_dir = episode_dir / f"{camera}_images"
+    if not image_dir.exists():
+        return 0
+    return sum(path.is_file() for path in image_dir.iterdir())
+
+
+def scan_dataset_health(data_path: Path, tolerance_multiplier: float = 1.2) -> int:
+    """Print a health report and return the number of suspicious episodes."""
     mismatched_lengths = []
     corrupted_timestamps = []
     total_episodes = 0
-    
-    # os.walk automatically traverses every folder, no matter how deeply nested
-    for root, dirs, files in os.walk(data_path):
-        #print(f"\rCurrently checking: {root[-80:]: <80}", end="", flush=True)
-        # Identify an episode folder by checking for core arrays
-        if 'ee_deltas.npy' in files and 'timestamps.npy' in files:
-            total_episodes += 1
-            print(f"Episode number: {total_episodes} | Path: {root[-80:]}")
-            
-            # ==========================================
-            # CHECK 1: Length Mismatches (End Drops)
-            # ==========================================
-            try:
-                ee_len = len(np.load(os.path.join(root, 'ee_deltas.npy')))
-                
-                # Check fixed camera (handles both npz and raw images)
-                if 'fixed_camera_video.npz' in files:
-                    cam_npz = np.load(os.path.join(root, 'fixed_camera_video.npz'))
-                    fixed_len = len(cam_npz[cam_npz.files[0]])
-                else:
-                    fixed_len = len(glob.glob(os.path.join(root, 'fixed_camera_images', '*.*')))
-                    
-                # Check left eye
-                if 'l_eye_video.npz' in files:
-                    cam_npz = np.load(os.path.join(root, 'l_eye_video.npz'))
-                    l_eye_len = len(cam_npz[cam_npz.files[0]])
-                else:
-                    l_eye_len = len(glob.glob(os.path.join(root, 'l_eye_images', '*.*')))
-                    
-                # Check right eye
-                if 'r_eye_video.npz' in files:
-                    cam_npz = np.load(os.path.join(root, 'r_eye_video.npz'))
-                    r_eye_len = len(cam_npz[cam_npz.files[0]])
-                else:
-                    r_eye_len = len(glob.glob(os.path.join(root, 'r_eye_images', '*.*')))
+    for episode_dir in sorted(path for path in data_path.rglob("*") if path.is_dir()):
+        actions_path = episode_dir / "ee_deltas.npy"
+        timestamps_path = episode_dir / "timestamps.npy"
+        if not actions_path.exists() or not timestamps_path.exists():
+            continue
+        total_episodes += 1
+        try:
+            lengths = {"actions": len(np.load(actions_path, mmap_mode="r"))}
+            lengths.update({camera: camera_length(episode_dir, camera) for camera in CAMERAS})
+            if len(set(lengths.values())) > 1:
+                mismatched_lengths.append((episode_dir, lengths))
+        except Exception as exc:
+            print(f"Could not read arrays in {episode_dir}: {exc}")
+        try:
+            timestamps = np.load(timestamps_path)
+            if len(timestamps) >= 2:
+                deltas = np.diff(timestamps)
+                expected = float(np.median(deltas))
+                maximum = float(np.max(deltas))
+                if expected > 0 and maximum > expected * tolerance_multiplier:
+                    corrupted_timestamps.append((episode_dir, int(np.argmax(deltas)), expected, maximum))
+        except Exception as exc:
+            print(f"Could not read timestamps in {episode_dir}: {exc}")
 
-                lengths = {
-                    'actions': ee_len,
-                    'fixed_cam': fixed_len,
-                    'l_eye': l_eye_len,
-                    'r_eye': r_eye_len
-                }
+    print(f"\nScanned {total_episodes} episodes")
+    print(f"Length mismatches: {len(mismatched_lengths)}")
+    for episode_dir, lengths in mismatched_lengths:
+        print(f"  {episode_dir}: {lengths}")
+    print(f"Timestamp gaps: {len(corrupted_timestamps)}")
+    for episode_dir, index, expected, actual in corrupted_timestamps:
+        print(f"  {episode_dir}: step {index}, expected about {expected:.4f}s, observed {actual:.4f}s")
+    return len(mismatched_lengths) + len(corrupted_timestamps)
 
-                # If turning the lengths into a set results in more than 1 unique number, they don't match
-                if len(set(lengths.values())) > 1:
-                    mismatched_lengths.append({'path': root, 'lengths': lengths})
-                    
-            except Exception as e:
-                print(f"Error reading lengths in {root}: {e}")
 
-            # ==========================================
-            # CHECK 2: Timestamp Deltas (Mid Drops)
-            # ==========================================
-            try:
-                timestamps = np.load(os.path.join(root, 'timestamps.npy'))
-                if len(timestamps) >= 2:
-                    deltas = np.diff(timestamps)
-                    expected_delta = np.median(deltas)
-                    max_delta = np.max(deltas)
-                    
-                    if max_delta > (expected_delta * tolerance_multiplier):
-                        drop_index = np.argmax(deltas)
-                        corrupted_timestamps.append({
-                            'path': root,
-                            'expected': expected_delta,
-                            'actual_jump': max_delta,
-                            'step_index': drop_index
-                        })
-            except Exception as e:
-                print(f"Error reading timestamps in {root}: {e}")
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("dataset_dir", type=Path)
+    parser.add_argument("--tolerance-multiplier", type=float, default=1.2)
+    args = parser.parse_args()
+    if not args.dataset_dir.is_dir():
+        parser.error(f"Dataset directory does not exist: {args.dataset_dir}")
+    if args.tolerance_multiplier <= 1:
+        parser.error("--tolerance-multiplier must be greater than 1")
+    suspicious = scan_dataset_health(args.dataset_dir, args.tolerance_multiplier)
+    raise SystemExit(1 if suspicious else 0)
 
-    # ==========================================
-    # PRINT DIAGNOSTIC REPORT
-    # ==========================================
-    print("\n" + "="*70)
-    print(f"SCAN COMPLETE: Analyzed {total_episodes} total episodes")
-    print("="*70)
-    
-    print(f"\n[TYPE 1] END-OF-EPISODE MISMATCHES: {len(mismatched_lengths)} episodes")
-    print("Action required: None. Your TFDS builder script's min() function will safely truncate these.")
-    for ep in mismatched_lengths:
-        print(f"  - {ep['path']}")
-        print(f"    Lengths found: {ep['lengths']}")
-        
-    print(f"\n[TYPE 2] MID-EPISODE DROPS (DESYNC): {len(corrupted_timestamps)} episodes")
-    print("Action required: Delete these folders, or AI will learn from misaligned data.")
-    for ep in corrupted_timestamps:
-        print(f"  - {ep['path']}")
-        print(f"    Drop at step {ep['step_index']}: Expected ~{ep['expected']:.4f}s gap, got {ep['actual_jump']:.4f}s")
-    print("\n")
 
-# Run the scanner
-dataset_path = '/home/ritam/thesis/sim_data_collection/recordings/t2'
-scan_dataset_health(dataset_path)
+if __name__ == "__main__":
+    main()

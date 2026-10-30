@@ -1,4 +1,4 @@
-﻿"""
+"""
 Build next-action delta labels from already collected trajectories.
 
 The original collector stores ee_deltas[t] as the transition from t-1 to t.

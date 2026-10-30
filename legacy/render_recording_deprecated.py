@@ -51,7 +51,7 @@ icub_pybullet.pycub.Visualizer = DummyVisualizer
 
 # ─── CONFIGURATION ───────────────────────────────────────────────────────────
 
-CONFIG_PATH   = "/home/ritam/thesis/sim_data_collection/configs/t2.yaml"
+CONFIG_PATH = str(Path(__file__).resolve().parents[1] / "configs" / "t2.yaml")
 CAMERA_KEYS   = ["r_eye", "l_eye", "fixed_camera"]
 RENDER_WIDTH  = 320
 RENDER_HEIGHT = 240

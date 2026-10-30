@@ -39,6 +39,7 @@ scripts/       dataset inspection and conversion utilities
 recordings/    prompt pools; generated sessions are ignored by Git
 tests/         lightweight behavioral contract tests
 baseline/      recorded pre-refactoring environment and validation results
+legacy/        unsupported historical snapshots retained for reference
 docs/          implementation and gripper-controller details
 ```
 
@@ -165,6 +166,26 @@ python process_dataset.py \
 This produces `fixed_camera_video.npz`, `l_eye_video.npz`, and
 `r_eye_video.npz`, followed by corresponding PNG directories. These generated
 files are ignored by Git.
+
+### Dataset diagnostics and Hub upload
+
+Scan a generated session for alignment problems:
+
+```bash
+python scripts/scan.py recordings/t1_smooth/<session_name>
+```
+
+The Hugging Face uploader is deliberately a dry run unless `--yes` is given:
+
+```bash
+python scripts/upload_huggingface.py \
+  --folder /path/to/prepared/dataset \
+  --repo-id username/dataset-name
+```
+
+Review the printed plan, authenticate with `huggingface-cli login`, and add
+`--yes` only when the destination and options are correct. The destructive
+`--replace` option deletes remote files that are absent locally.
 
 ## Validation
 
