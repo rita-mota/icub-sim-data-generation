@@ -1,0 +1,62 @@
+# Python bytecode and test/tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local environments and editor state
+.venv/
+venv/
+env/
+.env
+.env.*
+.vscode/
+.idea/
+*.swp
+*~
+
+# Generated demonstrations and render outputs
+recordings/**
+!recordings/README.md
+!recordings/t1/
+!recordings/t1/t1_prompts.txt
+!recordings/t2/
+!recordings/t2/t2_prompts.txt
+!recordings/t3/
+!recordings/t3/t3_prompts.txt
+!recordings/t4/
+!recordings/t4/t4_prompts.txt
+!recordings/t5/
+!recordings/t5/t5_prompts.txt
+outputs/
+_debug_videos/
+scripts/task_action_analysis_preview/
+scripts/rlds_frame_0_proprio.npy
+
+# Generated media, datasets, archives, and model artifacts
+*.mp4
+*.avi
+*.mov
+*.npz
+*.tfrecord*
+*.parquet
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Logs and local diagnostic artifacts
+*.log
+import_log.txt
+
+# Notebook and operating-system metadata
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
