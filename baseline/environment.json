@@ -1,0 +1,16 @@
+{
+  "recorded_date": "2026-10-30",
+  "source_commit": "624458cd844e5e6fd9c8bde58ec0dae20af1daa8",
+  "source_tag": "pre-publication-original",
+  "python": "3.12.3",
+  "platform": "Linux-6.18.33.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": {
+    "icub-pybullet": "1.2.0",
+    "numpy": "1.26.4",
+    "open3d": "0.19.0",
+    "opencv-python": "4.11.0.86",
+    "pybullet": "3.2.7",
+    "scipy": "1.17.1"
+  },
+  "simulator_episode_executed": false
+}
