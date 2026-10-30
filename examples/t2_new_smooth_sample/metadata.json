@@ -1,0 +1,27 @@
+{
+  "task": "t2_new_smooth",
+  "task_class": "T2NewSmoothMoving",
+  "instruction": "Arrange it so the bottle is on the front side of the laptop.",
+  "canonical_instruction": "Move the bottle to the front of the laptop.",
+  "objects": [
+    "bottle",
+    "computer"
+  ],
+  "config": "configs/t2.yaml",
+  "gripper_controller_profile": "t2_new_smooth",
+  "source": {
+    "session": "t2_new_smooth_session_20260806_214732",
+    "episode": "episode_001",
+    "observation_indices": [40, 41, 42, 43],
+    "action_indices": [40, 41, 42],
+    "source_observations": 113,
+    "source_actions": 112
+  },
+  "alignment": "ee_deltas[i] maps the corresponding sampled observation to the next sampled pose",
+  "action_columns": [
+    "delta_x", "delta_y", "delta_z",
+    "delta_roll", "delta_pitch", "delta_yaw",
+    "absolute_gripper_command"
+  ],
+  "camera_color_order": "RGB"
+}

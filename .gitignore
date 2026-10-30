@@ -57,6 +57,7 @@ dist/
 *.pth
 *.ckpt
 *.safetensors
+!examples/t2_new_smooth_sample/sample_episode.npz
 
 # Logs and local diagnostic artifacts
 *.log

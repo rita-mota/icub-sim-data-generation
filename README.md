@@ -20,7 +20,7 @@ generation:
 | CLI task | Demonstration |
 | --- | --- |
 | `t1_smooth` | Stack the red cube on the blue cube. |
-| `t2_new_smooth` | Move the bottle to the left of the laptop. |
+| `t2_new_smooth` | Move the bottle in front of the laptop. |
 | `t3_smooth` | Push the green box to the center of the table. |
 | `t4_smooth` | Remove the lid from the box. |
 | `t5_smooth` | Clean a simulated spill with a sponge. |
@@ -142,12 +142,24 @@ For `N` captured steps, `J` robot joints, and `K` task objects:
 | `timestamps.npy` | `(N,)` simulation timestamps |
 | `proprio.npy` | `(N, J)` joint positions |
 | `ee_poses.npy` | `(N, 7)`: position, Euler orientation, gripper state |
-| `ee_deltas.npy` | `(N, 7)` step-to-step end-effector deltas; first row is zero |
+| `ee_deltas.npy` | Raw: `(N, 7)` previous-to-current deltas. After next-action conversion: `(N-1, 7)` current-to-next labels. |
 | `obj_poses.npy` | `(N, 7*K)`: position and quaternion per object |
 | `camera_info.json` | fixed-camera position, target, and up vector |
 | `metadata.json` | task, instruction, objects, config, and gripper profile |
 
+The first six action values are Cartesian and Euler deltas. After gripper
+post-processing, the seventh value is the absolute binary gripper command
+(`0` closed, `1` open), not a delta.
+
 The collector samples at 5 Hz while physics runs at 240 Hz.
+
+### Small recorded sample
+
+[`examples/t2_new_smooth_sample`](examples/t2_new_smooth_sample) contains four
+consecutive observations, three aligned next-action labels, and the matching
+frames from all three cameras. It is an excerpt from a real successful
+`t2_new_smooth` demonstration and is intended for schema inspection only.
+The full datasets are available from the linked Hugging Face collection.
 
 ### Camera post-processing
 
@@ -193,6 +205,7 @@ Run the lightweight behavioral contracts from the repository root:
 
 ```bash
 python -m unittest discover -s tests -p "test_baseline_contracts.py" -v
+python -m unittest -v tests.test_public_sample
 ```
 
 The suite checks configuration and prompt hashes, task registration,
@@ -219,6 +232,10 @@ Recorded results and unverified areas are documented in
 - Dataset conversion and Hub upload scripts are research utilities and require
   additional review and environment-specific dependencies.
 - The code assumes the modified pyCub fork rather than upstream PyPI pyCub.
+- Older T2 recordings already published on Hugging Face may contain the stale
+  metadata field `base_prompt: "Move the bottle to the left of the laptop."`.
+  The executed task, per-episode instructions, prompt pool, and trajectories
+  place the bottle in front of the laptop; the source metadata is now corrected.
 
 ## License and attribution
 

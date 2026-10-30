@@ -5,7 +5,7 @@ import pybullet as p
 
 class T2Moving(BaseTask):
     CONFIG_PATH = "configs/t2.yaml"
-    BASE_PROMPT = "Move the bottle to the left of the laptop."
+    BASE_PROMPT = "Move the bottle to the front of the laptop."
     OBJECT_NAMES = ["bottle", "computer"]
 
     def object_randomizer(self):
