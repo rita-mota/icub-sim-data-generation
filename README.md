@@ -232,10 +232,6 @@ Recorded results and unverified areas are documented in
 - Dataset conversion and Hub upload scripts are research utilities and require
   additional review and environment-specific dependencies.
 - The code assumes the modified pyCub fork rather than upstream PyPI pyCub.
-- Older T2 recordings already published on Hugging Face may contain the stale
-  metadata field `base_prompt: "Move the bottle to the left of the laptop."`.
-  The executed task, per-episode instructions, prompt pool, and trajectories
-  place the bottle in front of the laptop; the source metadata is now corrected.
 
 ## License and attribution
 
